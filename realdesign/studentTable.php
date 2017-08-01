@@ -1,4 +1,5 @@
 <?php
+    session_start();
 	require_once('mydb_connect.php');
 	
 	date_default_timezone_set("Asia/Hong_Kong");
