@@ -1,5 +1,5 @@
 <?php
-$dbc=mysqli_connect('localhost','root','','sysintg');
+$dbc=mysqli_connect('localhost','root','1234','sysintg');
 
 if (!$dbc) {
  die('Could not connect: '.mysql_error());

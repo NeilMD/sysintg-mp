@@ -157,6 +157,8 @@
 		  <li class=" nav-item"><a href="numStudentsTable.php"  class=" nav-link"><i class="ft-monitor"></i><span>Number of Students</span></a>
 
           </li>
+          <li class=" nav-item right" style="float: right"><a href="logout.php" class=" nav-link"><i class="ft-monitor"></i><span>Logout</span></a>
+          </li>
 
         </ul>
       </div>
@@ -204,7 +206,7 @@
 </div>
 
 </fieldset> -->
-<form method="post">
+<form id="form" method="post">
 	<div class="col-md-12" style="margin-bottom: 10px;margin-top: 10px" >
 	  <h3 class="card-title right">University</h3>
 
@@ -270,7 +272,7 @@
 
 			Min. Age
 		  </label>
-		  <input class="col-md-6" min="1" max="200" id="min-age" name="minage" type="number">
+		  <input class="col-md-6" min="1" max="200" id="min-age" name="minage" required="" type="number">
 		</fieldset>
 	  </div>
 	  <div style="margin:10px 0px 10px 0px">
@@ -279,7 +281,7 @@
 
 			Max. Age
 		  </label>
-		  <input class="col-md-6" min="1" max="200" id="max-age" name="maxage" type="number">
+		  <input class="col-md-6" min="1" max="200" id="max-age" name="maxage" required="" type="number">
 		</fieldset>
 	  </div>
 
@@ -424,6 +426,26 @@
       console.log($(this).val());
       $("#max-age").attr("min",$(this).val());
     });
+
+    $("input[type=checkbox]").click(function() {
+      checked = $("input[type=checkbox]:checked").length;
+
+      if(!checked) {
+        alert("You must check at least one checkbox.");
+      
+      }
+
+    });
+    $('#form').submit(function(e){
+    	  checked = $("input[type=checkbox]:checked").length;
+    	  
+	      if(!checked) {
+	        alert("You must check at least one checkbox.");
+	        
+	      	e.preventDefault();
+	      }
+    });
+
   });
 </script>
 <!-- Mirrored from pixinvent.com/stack-responsive-bootstrap-4-admin-template/html/ltr/horizontal-menu-template-nav/dt-basic-initialization.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 14 Jul 2017 05:32:27 GMT -->

@@ -86,6 +86,8 @@
 					<li class=" nav-item"><a href="numStudentsTable.php"  class=" nav-link"><i class="ft-monitor"></i><span>Number of Students</span></a>
 
 					</li>
+					 <li class=" nav-item right" style="float: right"><a href="logout.php" class=" nav-link"><i class="ft-monitor"></i><span>Logout</span></a>
+          </li>
 	
 				</ul>
 			</div>
