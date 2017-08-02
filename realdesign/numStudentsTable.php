@@ -1,11 +1,15 @@
 <?php
     session_start();
-    
+    require 'mydb_connect.php';
+    if(empty($_SESSION['username'])){
+        header("Location: http://".$_SERVER['HTTP_HOST'].  dirname($_SERVER['PHP_SELF'])."/login.php");
+    }
 	date_default_timezone_set("Asia/Hong_Kong");
 	$allstudents="select university, count(studentId) as numStudents
 				  from student
 				  group by university";
 	$resultAS=mysqli_query($dbc,$allstudents);
+
 	
 
 ?>
@@ -91,7 +95,7 @@
                     <li class=" nav-item"><a href="numStudentsTable.php" class=" nav-link"><i class="ft-monitor"></i><span>Number of Students</span></a>
 
                     </li>
-                    <li class=" nav-item right" style="float: right"><a href="numStudentsTable.php" class=" nav-link"><i class="ft-monitor"></i><span>Logout</span></a>
+                    <li class=" nav-item right" style="float: right"><a href="logout.php" class=" nav-link"><i class="ft-monitor"></i><span>Logout</span></a>
 
                     </li>
 

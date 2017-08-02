@@ -1,7 +1,9 @@
 <?php
     session_start();
 	require_once('mydb_connect.php');
-	
+	if(empty($_SESSION['username'])){
+		header("Location: http://".$_SERVER['HTTP_HOST'].  dirname($_SERVER['PHP_SELF'])."/login.php");
+	}
 	date_default_timezone_set("Asia/Hong_Kong");
 	$allstudents="select firstName as firstname, surname as lastname, birthday, university
 				  from student";

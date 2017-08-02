@@ -12,7 +12,7 @@ $message=NULL;
   $_SESSION['username']=FALSE;
   $message.='<p>You forgot to enter your username!';
  } else {
-  $_SESSION['username']=$_POST['username']; 
+  $_SESSION['username']=null; 
  }
 
  if (empty($_POST['password'])){
@@ -25,23 +25,23 @@ $message=NULL;
  if(!isset($message)) {
 	$query = "SELECT username FROM users WHERE username = '".$_POST['username']."' AND password = '".$_POST['password']."';";
 	$result = mysqli_query($dbc, $query);
+
 	while($row=mysqli_fetch_array($result,MYSQLI_ASSOC)) {
-        $_SESSION['userID'] = $_POST['userID'];
-        $_SESSION['username'] = $_POST['username'];
+        $_SESSION['userID'] = $row['username'];
+        $_SESSION['username'] = $row['username'];
 	}
  }
- if($_SESSION['username'] == 'user')  {
-		header("Location: http://".$_SERVER['HTTP_HOST'].  dirname($_SERVER['PHP_SELF'])."/numStudentsTable.php");
+ if($_SESSION['userID'] != null)  {
+		header("Location: http://".$_SERVER['HTTP_HOST'].  dirname($_SERVER['PHP_SELF'])."/studentTable.php");
 	}
     else {
-        header("Location: http://".$_SERVER['HTTP_HOST'].  dirname($_SERVER['PHP_SELF'])."/numStudentsTable.php");
+        $message .= '<p>Username or Password error!</p>';
+         echo '<font color="red">'.$message. '</font>';
+        
     }
 	
 }
 
-if (isset($message)){
- echo '<font color="red">'.$message. '</font>';
-}
 
 ?>
     <html lang="en" data-textdirection="ltr" class="loading">
@@ -102,7 +102,7 @@ if (isset($message)){
                                 </div>
                                 <div class="card-body collapse in">
                                     <div class="card-block">
-                                        <form class="form-horizontal form-simple" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+                                        <form class="form-horizontal form-simple"  method="post">
                                             <fieldset class="form-group position-relative has-icon-left mb-0">
                                                 <input type="text" class="form-control form-control-lg input-lg" name="username" placeholder="Your Username" value="<?php if (isset($_POST['username'])) echo $_POST['username']; ?>" required>
                                                 <div class="form-control-position">
@@ -116,7 +116,7 @@ if (isset($message)){
                                                 </div>
                                             </fieldset>
                                            
-                                            <button type="submit" class="btn btn-primary btn-lg btn-block"><i class="ft-unlock"></i> Login</button>
+                                            <button type="submit" name="submit" class="btn btn-primary btn-lg btn-block"><i class="ft-unlock"></i> Login</button>
                                         </form>
                                     </div>
                                 </div>

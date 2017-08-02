@@ -1,6 +1,9 @@
 <?php
     session_start();
 	require_once('mydb_connect.php');
+	if(empty($_SESSION['username'])){
+		header("Location: http://".$_SERVER['HTTP_HOST'].  dirname($_SERVER['PHP_SELF'])."/login.php");
+	}
 	
 	date_default_timezone_set("Asia/Hong_Kong");
 	$data = array();
@@ -25,6 +28,8 @@
 					while($row=mysqli_fetch_array($resultS,MYSQLI_ASSOC)){
 						array_push($data,$row);
 					}
+
+				}
 					
 					for($x = 0; $x < count($data); $x++){
 						$temp = date_diff(date_create($data[$x]['birthday']), date_create('today'))->y;
@@ -44,7 +49,7 @@
 					
 					
 					
-				}
+				
 			}
 			
 			if(isset($_POST['univall']) && count($_POST['univall']) > 0){
@@ -258,7 +263,7 @@
 		</fieldset>
 		<fieldset class="checkboxsas">
 		  <label>
-			<input value="All" name="univall[]" type="checkbox">
+			<input value="All" name="univall[]" id="all" type="checkbox">
 			All 
 		  </label>
 		</fieldset>
@@ -420,6 +425,7 @@
 
   });
   $(document).ready(function(){
+  	ctr = 0;
     $("#min-age").val("");
     $("#max-age").val("");
     $("#min-age").change(function(){
@@ -429,6 +435,32 @@
 
     $("input[type=checkbox]").click(function() {
       checked = $("input[type=checkbox]:checked").length;
+      valAll = $("#all").is(":checked");
+      
+      val = $(this).val();
+      //if All is checked
+      if(valAll ){
+      	// trying to check
+      	if(val != 'All'){
+      		alert("Cannot check anything else if all is true!");
+
+      		return false;
+
+      	}
+
+
+      }
+      
+      // if(val == 'All'){
+      // 	if(ctr != 0){
+      // 		alert("Cannot check All if you already check other universities!");
+
+      // 		return false;
+
+      // 	}
+      // }
+      
+
 
       if(!checked) {
         alert("You must check at least one checkbox.");
